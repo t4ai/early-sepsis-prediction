@@ -30,9 +30,10 @@ class DeteriorationIndex():
             # capture extra points if this is an escalation 
             if(severity_t_1 == "moderate" or severity_t_1 == "severe"):
                 score -= 1
+        return score
 
     @staticmethod
-    def tachycardia_status(heart_rate):
+    def hr_status(heart_rate):
         # check ranges for tachycardia
         if(heart_rate > 120 or heart_rate < 60):
             # severe
@@ -44,7 +45,7 @@ class DeteriorationIndex():
             # normal - check if this improved from previous ts
             return "normal"
     @staticmethod
-    def tachypnea_bradypnea_status(resp):
+    def resp_status(resp):
         # check ranges for tachycardia
         if(resp > 25 or resp < 10):
             # severe
@@ -61,14 +62,15 @@ class DeteriorationIndex():
         if(o2sat < 90):
             # severe
             return "severe"
-        elif(resp in range (90, 94)):
+        elif(o2sat in range (90, 94)):
             # moderate
             return "moderate"
-        elif(resp >= 95):
+        elif(o2sat >= 95):
             # normal - check if this improved from previous ts
             return "normal"
     @staticmethod
     def temp_status(temp):
+        print(type(temp))
         # check ranges for tachycardia
         if(temp > 39 or temp < 35):
             # severe
@@ -151,33 +153,40 @@ class DeteriorationIndex():
         elif(lactate < 2):
             # normal - check if this improved from previous ts
             return "normal"
-
-    def hr_score(self, current_ts):
+    
+    def feature_score(self, feature_column, current_ts, status_function):
         """ Calculates the heart rate deterioration score for time step current_ts """
-        hr_score = 0
-        hr_t = self.patient.iloc[current_ts]['hr']
-        hr_t_1 = self.patient.iloc[current_ts - 1]['hr']
+        #hr_score = self.calculate_score_for_feature('hr', current_ts, DeteriorationIndex.tachycardia_status)
+        #hr_score = status_function(100)
+        score = 0
+        feature_t = self.patient.iloc[current_ts][feature_column]
+        feature_t_1 = self.patient.iloc[current_ts - 1][feature_column]
         
         # check ranges for tachycardia
-        tachycardia_status_t = self.tachycardia_status(hr_t)
-        tachycardia_status_t_1 = self.tachycardia_status(hr_t_1)
+        status_t = status_function(feature_t)
+        status_t_1 = status_function(feature_t_1)
 
         # calculate score
-        hr_score = self.severity_score_calc(tachycardia_status_t, tachycardia_status_t_1)
+        score = self.severity_score_calc(status_t, status_t_1)
+        return score
+    
+    def patient_deterioration_index(self):
+
+        # for each row, calcluate all the feature scores
+        time_step = 3
+
+        # for each row, calcluate all the feature scores
+        hr_score = self.feature_score('hr', time_step, DeteriorationIndex.hr_status)
+        resp_score = self.feature_score('resp', time_step, DeteriorationIndex.resp_status)
+        o2sat_score = self.feature_score('o2sat', time_step, DeteriorationIndex.o2sat_status)
+        temp_score = self.feature_score('temp', time_step, DeteriorationIndex.temp_status)
+        map_score = self.feature_score('map', time_step, DeteriorationIndex.map_status)
+        wbc_score = self.feature_score('wbc', time_step, DeteriorationIndex.wbc_status)
+        platelets_score = self.feature_score('platelets', time_step, DeteriorationIndex.platelets_status)
+        creatinine_score = self.feature_score('creatinine', time_step, DeteriorationIndex.creatinine_status)
+        glucose_score = self.feature_score('glucose', time_step, DeteriorationIndex.glucose_status)
+        lactate_score = self.feature_score('lactate', time_step, DeteriorationIndex.lactate_status)
+        
+        
         
         return hr_score
-
-    def resp_score(self, current_ts):
-        """ Calculates the respiratory deterioration score for time step current_ts """
-        resp_score = 0
-        resp_t = self.patient.iloc[current_ts]['resp']
-        resp_t_1 = self.patient.iloc[current_ts - 1]['resp']
-        
-        # check ranges for tachycardia
-        tachypnea_bradypnea_status_t = self.tachypnea_bradypnea_status(resp_t)
-        tachypnea_bradypnea_status_t_1 = self.tachypnea_bradypnea_status(resp_t_1)
-
-        # calculate score
-        resp_score = self.severity_score_calc(tachypnea_bradypnea_status_t, tachypnea_bradypnea_status_t_1)
-        
-        return resp_score
