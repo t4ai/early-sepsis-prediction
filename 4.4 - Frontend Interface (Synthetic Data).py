@@ -13,7 +13,7 @@ st.markdown("""
 #### A Real-Time Prediction and Decision Support Tool for Healthcare Professionals
 This system provides doctors with insights to assess sepsis risk based on patient data, assisting in quick and accurate decision-making in critical care.
 
-The tool will be updated to integrate multiple machine learning models currently under development by the research team, including a Convolutional Neural Network (CNN) and a MicroLSTM. The final step for integration involves standardizing the preprocessing workflow to ensure data compatibility across models and correctly formatting the input data for each model's specific requirements.
+The tool will be updated to integrate multiple machine learning models currently under development by the research team, including a Convolutional Neural Network (CNN) and a Micro Long-Short-Term-Memory (LSTM) model. The final step for integration involves standardizing the preprocessing workflow to ensure data compatibility across models and correctly formatting the input data for each model's specific requirements.
 """)
 
 # Sidebar for Navigation and Information
