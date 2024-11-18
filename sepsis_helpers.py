@@ -1,4 +1,5 @@
 import numpy as np
+from math import ceil
 
 class DeteriorationIndex():
     """ Helper class to caclulate deterioration index for a patient, at a timestep
@@ -11,6 +12,18 @@ class DeteriorationIndex():
         :param patient_row: The prepared row with patient features at each time step
         """
         self.patient = patient_row
+        self.weights = {
+            "hr": 0.053,
+            "resp": 0.022,
+            "o2sat": 0.057,
+            "temp": 0.144,
+            "map": 0.018,
+            "wbc": 0.076,
+            "platelets": 0.141,
+            "creatinine": 0.060,
+            "glucose": 0.049,
+            "lactate": 0.009,
+        }
 
     @staticmethod
     def severity_score_calc(severity_t, severity_t_1):
@@ -34,7 +47,6 @@ class DeteriorationIndex():
 
     @staticmethod
     def hr_status(heart_rate):
-        # check ranges for tachycardia
         if(heart_rate > 120 or heart_rate < 60):
             # severe
             return "severe"
@@ -46,7 +58,6 @@ class DeteriorationIndex():
             return "normal"
     @staticmethod
     def resp_status(resp):
-        # check ranges for tachycardia
         if(resp > 25 or resp < 10):
             # severe
             return "severe"
@@ -58,7 +69,6 @@ class DeteriorationIndex():
             return "normal"
     @staticmethod
     def o2sat_status(o2sat):
-        # check ranges for tachycardia
         if(o2sat < 90):
             # severe
             return "severe"
@@ -70,20 +80,17 @@ class DeteriorationIndex():
             return "normal"
     @staticmethod
     def temp_status(temp):
-        print(type(temp))
-        # check ranges for tachycardia
         if(temp > 39 or temp < 35):
             # severe
             return "severe"
-        elif((temp in range (35, 35.9)) or (temp in range (38, 39))):
+        elif((temp >= 35 and temp <= 35.9) or (temp >= 38 and temp <= 39)):
             # moderate
             return "moderate"
-        elif(temp in range (36, 37.9)):
+        elif((temp >= 36 and temp <= 37.9)):
             # normal - check if this improved from previous ts
             return "normal"
     @staticmethod
     def map_status(map):
-        # check ranges for tachycardia
         if(map > 130 or map < 60):
             # severe
             return "severe"
@@ -95,43 +102,40 @@ class DeteriorationIndex():
             return "normal"
     @staticmethod
     def platelets_status(platelets):
-        # check ranges for tachycardia
-        if(platelets < 50000):
+        if(platelets < 50):
             # severe
             return "severe"
-        elif(platelets in range (50000, 100000)):
+        elif(platelets in range (50, 100)):
             # moderate
             return "moderate"
-        elif(platelets > 100000):
+        elif(platelets > 100):
             # normal - check if this improved from previous ts
             return "normal"
     @staticmethod
     def wbc_status(wbc):
-        # check ranges for tachycardia
-        if(wbc > 12000 or wbc < 3000):
+        if(wbc > 12 or wbc < 3):
             # severe
             return "severe"
-        elif((wbc in range (3000, 4000)) or (wbc in range (10000, 12000))):
+        elif((wbc in range (3, 4)) or (wbc in range (10, 12))):
             # moderate
             return "moderate"
-        elif(wbc in range (4000, 10000)):
+        elif(wbc in range (4, 10)):
             # normal - check if this improved from previous ts
             return "normal"
     @staticmethod
     def creatinine_status(creatinine):
-        # check ranges for tachycardia
+        creatinine = round(creatinine, 1)
         if(creatinine > 2):
             # severe
             return "severe"
-        elif(creatinine in range (1.2, 2)):
+        elif(creatinine >=1.2 and creatinine <=2):
             # moderate
             return "moderate"
-        elif(creatinine in range (0.6, 1.2)):
+        elif(creatinine >=0.6 and creatinine <1.2):
             # normal - check if this improved from previous ts
             return "normal"
     @staticmethod
     def glucose_status(glucose):
-        # check ranges for tachycardia
         if(glucose > 200 or glucose < 60):
             # severe
             return "severe"
@@ -172,7 +176,10 @@ class DeteriorationIndex():
     
     def patient_deterioration_index(self):
 
+        #patient_scores = np.zeros(len(self.patient))
+        patient_scores = np.full(len(self.patient), self.patient.iloc[0]['patient_id'], dtype=int)
         # for each row, calcluate all the feature scores
+        self.patient.iloc[0]['patient_id']
         time_step = 3
 
         # for each row, calcluate all the feature scores
@@ -187,6 +194,6 @@ class DeteriorationIndex():
         glucose_score = self.feature_score('glucose', time_step, DeteriorationIndex.glucose_status)
         lactate_score = self.feature_score('lactate', time_step, DeteriorationIndex.lactate_status)
         
+        hr_weight = self.weights['hr']
         
-        
-        return hr_score
+        return patient_scores
