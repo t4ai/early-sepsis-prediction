@@ -174,26 +174,26 @@ class DeteriorationIndex():
         score = self.severity_score_calc(status_t, status_t_1)
         return score
     
-    def patient_deterioration_index(self):
+    def patient_full_deterioration_index(self):
 
-        #patient_scores = np.zeros(len(self.patient))
-        patient_scores = np.full(len(self.patient), self.patient.iloc[0]['patient_id'], dtype=int)
-        # for each row, calcluate all the feature scores
-        self.patient.iloc[0]['patient_id']
-        time_step = 3
-
-        # for each row, calcluate all the feature scores
-        hr_score = self.feature_score('hr', time_step, DeteriorationIndex.hr_status)
-        resp_score = self.feature_score('resp', time_step, DeteriorationIndex.resp_status)
-        o2sat_score = self.feature_score('o2sat', time_step, DeteriorationIndex.o2sat_status)
-        temp_score = self.feature_score('temp', time_step, DeteriorationIndex.temp_status)
-        map_score = self.feature_score('map', time_step, DeteriorationIndex.map_status)
-        wbc_score = self.feature_score('wbc', time_step, DeteriorationIndex.wbc_status)
-        platelets_score = self.feature_score('platelets', time_step, DeteriorationIndex.platelets_status)
-        creatinine_score = self.feature_score('creatinine', time_step, DeteriorationIndex.creatinine_status)
-        glucose_score = self.feature_score('glucose', time_step, DeteriorationIndex.glucose_status)
-        lactate_score = self.feature_score('lactate', time_step, DeteriorationIndex.lactate_status)
+        # create blank array
+        patient_scores = np.zeros(len(self.patient))
         
-        hr_weight = self.weights['hr']
+        #iterate time steps
+        for time_step in range(0, len(self.patient)):
+
+            ts_score = 0
+            ts_score += self.feature_score('hr', time_step, DeteriorationIndex.hr_status) * self.weights['hr']
+            ts_score += self.feature_score('resp', time_step, DeteriorationIndex.resp_status) * self.weights['resp']
+            ts_score += self.feature_score('o2sat', time_step, DeteriorationIndex.o2sat_status) * self.weights['o2sat']
+            ts_score += self.feature_score('temp', time_step, DeteriorationIndex.temp_status) * self.weights['temp']
+            ts_score += self.feature_score('map', time_step, DeteriorationIndex.map_status) * self.weights['map']
+            ts_score += self.feature_score('wbc', time_step, DeteriorationIndex.wbc_status) * self.weights['wbc']
+            ts_score += self.feature_score('platelets', time_step, DeteriorationIndex.platelets_status) * self.weights['platelets']
+            ts_score += self.feature_score('creatinine', time_step, DeteriorationIndex.creatinine_status) * self.weights['creatinine']
+            ts_score += self.feature_score('glucose', time_step, DeteriorationIndex.glucose_status) * self.weights['glucose']
+            ts_score += self.feature_score('lactate', time_step, DeteriorationIndex.lactate_status) * self.weights['lactate']
+            patient_scores[time_step] = ts_score
+        
         
         return patient_scores
