@@ -42,7 +42,7 @@ class DeteriorationIndex():
             score = 0
             # capture extra points if this is an escalation 
             if(severity_t_1 == "moderate" or severity_t_1 == "severe"):
-                score -= 1
+                score -= 12
         return score
 
     @staticmethod
