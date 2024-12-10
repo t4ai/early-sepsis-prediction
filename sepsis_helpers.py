@@ -2,7 +2,7 @@ import numpy as np
 from math import ceil
 
 class DeteriorationIndex():
-    """ Helper class to caclulate deterioration index for a patient, at a timestep
+    """ Helper class to caclulate deterioration index for a patient, across timesteps
 
     Input a patient sequence
         
