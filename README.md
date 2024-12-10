@@ -8,7 +8,8 @@ Sepsis, a severe inflammatory response to infection, can progress quickly and is
 ### Stacked Convolutional Transformer (SCT) Model
 A key outcome of this project was the development of a novel model architecture that combined the feature extraction capabilities of CNNs with the long context understanding of the attention-based transformer.  Through experimentation with separate CNN and Transformer models, an optimal base architecture for each was developed and combined into a stacked hybrid model, resulting in the Stacked Convolutional Transformer (SCT) Model architecture.
 
-![alt text]([http://url/to/img.png](https://drive.google.com/file/d/1CAdDSSBmzUCsBBXDF1qxQfB6Hbx4Efqi/view?usp=drive_link))
+![alt text](https://github.com/t4ai/early-sepsis-prediction/main/sct_diagram.png?raw=true)
+
 
 ### Deterioration Index (DI) Feature
 A novel feature, the Deterioration Index (DI), was engineered to encode changes in overall patient health over time.  The DI was a calculated score designed to monitor changes in a patient’s vital signs and lab values, enabling the detection of rapid trends or deviations that may signal clinical deterioration, such as the onset of sepsis.  Effectively, the DI encodes medical knowledge that a human doctor or nurse may apply in a clinical setting in order to detect degradation in a patient’s overall condition, potentially leading to sepsis.  The feature also incorporates a rate of change from the previous time step, providing time-based trend information as to whether a patient is deteriorating or improving.
