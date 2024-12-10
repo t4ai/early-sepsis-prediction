@@ -1,6 +1,16 @@
 import numpy as np
 from math import ceil
-
+######################################################################################################################
+#
+#  SepsisHelpers
+#
+#  Helper class to run Deterioration Index scoring and
+#  calculation for a full patient time series.
+#
+#  Input: series of patient data.  Each row in series consists of feature readings at a time step
+#
+#  Outpu: series of patient data with deterioration_index added for each time step
+######################################################################################################################
 class DeteriorationIndex():
     """ Helper class to caclulate deterioration index for a patient, across timesteps
 
@@ -159,14 +169,12 @@ class DeteriorationIndex():
             return "normal"
     
     def feature_score(self, feature_column, current_ts, status_function):
-        """ Calculates the heart rate deterioration score for time step current_ts """
-        #hr_score = self.calculate_score_for_feature('hr', current_ts, DeteriorationIndex.tachycardia_status)
-        #hr_score = status_function(100)
+        """ Calculates the feature deterioration score for time step current_ts """
         score = 0
         feature_t = self.patient.iloc[current_ts][feature_column]
         feature_t_1 = self.patient.iloc[current_ts - 1][feature_column]
         
-        # check ranges for tachycardia
+        # check ranges 
         status_t = status_function(feature_t)
         status_t_1 = status_function(feature_t_1)
 
