@@ -3,11 +3,12 @@
 
 ## Overview
 
- Sepsis, a severe inflammatory response to infection, can progress quickly and is a leading cause of mortality in intensive care settings.  This project addresses the critical challenge of predicting sepsis onset in ICU patients by applying machine learning techniques to clinical data that is commonly available in the ICU. 
+Sepsis, a severe inflammatory response to infection, can progress quickly and is a leading cause of mortality in intensive care settings.  This project addresses the critical challenge of predicting sepsis onset in ICU patients by applying machine learning techniques to clinical data that is commonly available in the ICU. 
 
 ### Stacked Convolutional Transformer (SCT) Model
 A key outcome of this project was the development of a novel model architecture that combined the feature extraction capabilities of CNNs with the long context understanding of the attention-based transformer.  Through experimentation with separate CNN and Transformer models, an optimal base architecture for each was developed and combined into a stacked hybrid model, resulting in the Stacked Convolutional Transformer (SCT) Model architecture.
 
+![alt text]([http://url/to/img.png](https://drive.google.com/file/d/1CAdDSSBmzUCsBBXDF1qxQfB6Hbx4Efqi/view?usp=drive_link))
 
 ### Deterioration Index (DI) Feature
 A novel feature, the Deterioration Index (DI), was engineered to encode changes in overall patient health over time.  The DI was a calculated score designed to monitor changes in a patient’s vital signs and lab values, enabling the detection of rapid trends or deviations that may signal clinical deterioration, such as the onset of sepsis.  Effectively, the DI encodes medical knowledge that a human doctor or nurse may apply in a clinical setting in order to detect degradation in a patient’s overall condition, potentially leading to sepsis.  The feature also incorporates a rate of change from the previous time step, providing time-based trend information as to whether a patient is deteriorating or improving.
@@ -31,15 +32,6 @@ The repository is organized as follows:
 
 - **app/**: Contains the application code for mock UI.
 - **models/lstm-light/**: Includes the implementation of a lightweight Long Short-Term Memory (LSTM) model tailored for sepsis prediction.
-
-## :question: What is Early Sepsis Prediction?
-
-The **Early Sepsis Prediction** repository provides a machine learning framework to detect sepsis in its early stages using clinical data. By leveraging advanced algorithms, this project aims to improve patient outcomes by identifying potential sepsis cases earlier than traditional diagnostic methods. 
-
-Key features include:
-- Support for training models on time-series clinical datasets.
-- Evaluation metrics tailored for medical applications.
-- Modular design to adapt to various datasets and model architectures.
 
 
 ## 📜 License
