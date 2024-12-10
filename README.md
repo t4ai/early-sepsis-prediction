@@ -8,7 +8,7 @@ Sepsis, a severe inflammatory response to infection, can progress quickly and is
 ### Stacked Convolutional Transformer (SCT) Model
 A key outcome of this project was the development of a novel model architecture that combined the feature extraction capabilities of CNNs with the long context understanding of the attention-based transformer.  Through experimentation with separate CNN and Transformer models, an optimal base architecture for each was developed and combined into a stacked hybrid model, resulting in the Stacked Convolutional Transformer (SCT) Model architecture.
 
-![alt text](https://github.com/t4ai/early-sepsis-prediction/main/sct_diagram.png?raw=true)
+![SCT Architecture Diagram](app/sct-diagram.png)
 
 
 ### Deterioration Index (DI) Feature
