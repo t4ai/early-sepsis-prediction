@@ -40,14 +40,16 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## 🛡️ Badges
 
-![Build Status](https://img.shields.io/github/workflow/status/t4ai/early-sepsis-prediction/CI)
 ![License](https://img.shields.io/github/license/t4ai/early-sepsis-prediction)
 ![Contributors](https://img.shields.io/github/contributors/t4ai/early-sepsis-prediction)
 
 ## ❤️ Acknowledgments
 
-We thank the medical and data science community for their contributions and datasets that inspired this project.
+This project is the Captsone Project (AAI-590) for Team 3: Tyler Foreman, Ahmed Ahmed, Eric Barnes and Ryan Laxamana.
+
+University of San Diego - M.S.c in Applied Artificial Intelligence
+
+Summer 2023 Cohort
 
 ---
 
-This README was crafted to adhere to best practices for open-source projects, ensuring clarity and ease of use.
