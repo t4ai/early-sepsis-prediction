@@ -34,13 +34,8 @@ The repository is organized as follows:
 - **models/lstm-light/**: Includes the implementation of a lightweight Long Short-Term Memory (LSTM) model tailored for sepsis prediction.
 
 
-## 📜 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## 🛡️ Badges
 
-![License](https://img.shields.io/github/license/t4ai/early-sepsis-prediction)
 ![Contributors](https://img.shields.io/github/contributors/t4ai/early-sepsis-prediction)
 
 ## ❤️ Acknowledgments
